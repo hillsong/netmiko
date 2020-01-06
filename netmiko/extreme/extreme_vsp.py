@@ -3,7 +3,7 @@ import time
 from netmiko.cisco_base_connection import CiscoSSHConnection
 
 
-class ExtremeVspSSH(CiscoSSHConnection):
+class ExtremeVspBase(CiscoSSHConnection):
     """Extreme Virtual Services Platform Support."""
 
     def session_preparation(self):
@@ -20,3 +20,12 @@ class ExtremeVspSSH(CiscoSSHConnection):
         return super().save_config(
             cmd=cmd, confirm=confirm, confirm_response=confirm_response
         )
+
+class ExtremeVspSSH(ExtremeVspBase):
+    pass
+
+class ExtremeVspTelnet(ExtremeVspBase):
+    def __init__(self, *args, **kwargs):
+        default_enter = kwargs.get("default_enter")
+        kwargs["default_enter"] = "\r\n" if default_enter is None else default_enter
+        super().__init__(*args, **kwargs)

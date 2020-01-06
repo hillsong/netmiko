@@ -35,6 +35,7 @@ from netmiko.eltex import EltexSSH, EltexEsrSSH
 from netmiko.endace import EndaceSSH
 from netmiko.enterasys import EnterasysSSH
 from netmiko.extreme import ExtremeErsSSH
+from netmiko.extreme import ExtremeErsTelnet
 from netmiko.extreme import ExtremeExosSSH
 from netmiko.extreme import ExtremeExosTelnet
 from netmiko.extreme import ExtremeNetironSSH
@@ -42,6 +43,7 @@ from netmiko.extreme import ExtremeNetironTelnet
 from netmiko.extreme import ExtremeNosSSH
 from netmiko.extreme import ExtremeSlxSSH
 from netmiko.extreme import ExtremeVspSSH
+from netmiko.extreme import ExtremeVspTelnet
 from netmiko.extreme import ExtremeWingSSH
 from netmiko.f5 import F5TmshSSH
 from netmiko.f5 import F5LinuxSSH
@@ -207,8 +209,10 @@ CLASS_MAPPER["cisco_xr_telnet"] = CiscoXrTelnet
 CLASS_MAPPER["dell_dnos6_telnet"] = DellDNOS6Telnet
 CLASS_MAPPER["dell_powerconnect_telnet"] = DellPowerConnectTelnet
 CLASS_MAPPER["extreme_telnet"] = ExtremeExosTelnet
+CLASS_MAPPER["extreme_ers_telnet"] = ExtremeErsTelnet
 CLASS_MAPPER["extreme_exos_telnet"] = ExtremeExosTelnet
 CLASS_MAPPER["extreme_netiron_telnet"] = ExtremeNetironTelnet
+CLASS_MAPPER["extreme_vsp_telnet"] = ExtremeVspTelnet
 CLASS_MAPPER["generic_termserver_telnet"] = TerminalServerTelnet
 CLASS_MAPPER["hp_procurve_telnet"] = HPProcurveTelnet
 CLASS_MAPPER["hp_comware_telnet"] = HPComwareTelnet

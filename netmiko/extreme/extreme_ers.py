@@ -6,7 +6,7 @@ from netmiko.cisco_base_connection import CiscoSSHConnection
 CTRL_Y = "\x19"
 
 
-class ExtremeErsSSH(CiscoSSHConnection):
+class ExtremeErsBase(CiscoSSHConnection):
     """Netmiko support for Extreme Ethernet Routing Switch."""
 
     def special_login_handler(self, delay_factor=1):
@@ -41,3 +41,12 @@ class ExtremeErsSSH(CiscoSSHConnection):
         return super().save_config(
             cmd=cmd, confirm=confirm, confirm_response=confirm_response
         )
+
+class ExtremeErsSSH(ExtremeErsBase):
+    pass
+
+class ExtremeErsTelnet(ExtremeErsBase):
+    def __init__(self, *args, **kwargs):
+        default_enter = kwargs.get("default_enter")
+        kwargs["default_enter"] = "\r\n" if default_enter is None else default_enter
+        super().__init__(*args, **kwargs)
