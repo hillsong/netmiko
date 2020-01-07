@@ -22,8 +22,10 @@ class ExtremeErsBase(CiscoSSHConnection):
         i = 0
         while i <= 12:
             output = self.read_channel()
+            print(output)
             if output:
                 if "Ctrl-Y" in output:
+                    print("Sending Ctrl-Y")
                     self.write_channel(CTRL_Y)
                 if "sername" in output:
                     self.write_channel(self.username + self.RETURN)
@@ -32,7 +34,7 @@ class ExtremeErsBase(CiscoSSHConnection):
                     break
                 time.sleep(0.5 * delay_factor)
             else:
-                self.write_channel(self.RETURN)
+                print("waiting now...")
                 time.sleep(1 * delay_factor)
             i += 1
 
@@ -48,5 +50,17 @@ class ExtremeErsSSH(ExtremeErsBase):
 class ExtremeErsTelnet(ExtremeErsBase):
     def __init__(self, *args, **kwargs):
         default_enter = kwargs.get("default_enter")
-        kwargs["default_enter"] = "\r\n" if default_enter is None else default_enter
+        kwargs["default_enter"] = "\n" if default_enter is None else default_enter
         super().__init__(*args, **kwargs)
+
+    def telnet_login(
+        self,
+        pri_prompt_terminator=r"#\s*$",
+        alt_prompt_terminator=r">\s*$",
+        username_pattern=r"(?:user:|username|login|user name)",
+        pwd_pattern=r"assword",
+        delay_factor=1,
+        max_loops=20,
+    ):
+        self.special_login_handler()
+
